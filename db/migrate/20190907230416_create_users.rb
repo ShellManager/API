@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_hash
       t.string :encryption_key
       t.inet :last_login_ip
-      t.hash :fingerprints
+      t.string :fingerprints
       t.string :tfa_key
       t.uuid :user_global_id
       t.string :api_key
