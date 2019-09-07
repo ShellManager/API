@@ -1,7 +1,10 @@
-scope module: :api, defaults: { format: :json }, path: 'api' do
-  scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-    devise_for :users, controllers: {
-        registrations: 'api/v1/users/registrations',
-    }, skip: [:sessions, :password]
+class ApiConstraints
+  def initialize(options)
+    @version = options[:version]
+    @default = options[:default]
+  end
+
+  def matches?(req)
+    @default || req.headers['Accept'].include?("application/vnd.shellmanager.api+json; version=#{@version}")
   end
 end

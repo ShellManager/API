@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  site_name: MyString
+  site_protocol: MyString
+  recaptcha_site_key: MyString
+  recaptcha_secret_key: MyString
+
+two:
+  site_name: MyString
+  site_protocol: MyString
+  recaptcha_site_key: MyString
+  recaptcha_secret_key: MyString
