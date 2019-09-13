@@ -6,4 +6,8 @@ class ErrorsController < ApplicationController
   def internal_server_error
     render :json => { :status => "Server error. Try again later" }
   end
+
+  def bad_request
+    render :json => { :status => "Bad request"}
+  end
 end
