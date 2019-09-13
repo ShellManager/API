@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :first_name
       t.string :last_name
       t.string :email
+      t.date   :date_of_birth
+      t.integer :permission_level
       t.string :password_digest
       t.string :password_hash
       t.string :encryption_key
@@ -16,8 +18,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.boolean :activated
       t.boolean :active
       t.boolean :shell_active
+      t.boolean :protected
       t.string :shell_username
-
       t.timestamps
     end
   end

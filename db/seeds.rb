@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+password = SecureRandom.hex(24)
+User.create!(first_name: 'System',
+            last_name: 'Administrator',
+            email: 'system@m6.nz',
+            date_of_birth: '1970-01-01',
+            permission_level: 0,
+            password: password,
+            shell_username: 'root',
+            activation_token: nil,
+            api_key: SecureRandom.uuid,
+            activated: true,
+            active: true,
+            shell_active: true,
+            protected: true,
+            user_global_id: SecureRandom.uuid)
+puts 'New System Account details:'
+puts 'Username: root'
+puts 'Email: system@m6.nz'
+puts "Password: #{password}"

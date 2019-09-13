@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2019_09_07_231415) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
+    t.date "date_of_birth"
+    t.integer "permission_level"
     t.string "password_digest"
     t.string "password_hash"
     t.string "encryption_key"
@@ -40,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_09_07_231415) do
     t.boolean "activated"
     t.boolean "active"
     t.boolean "shell_active"
+    t.boolean "protected"
     t.string "shell_username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
