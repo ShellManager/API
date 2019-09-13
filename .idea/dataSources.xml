@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Rails API: development" uuid="807d2d61-f368-466a-a446-b85d52891f82">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://pubdb01.m6.nz:5432/shellmanager_dev</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails API: test" uuid="965fde32-d578-432d-a482-69c15fe75d20">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://pubdb01.m6.nz:5432/shellmanager_test</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails API: production" uuid="f0aa8ce3-c1f2-4c82-8857-ea6a69ad1a2d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://pubdb01.m6.nz:5432/shellmanager</jdbc-url>
+    </data-source>
+  </component>
+</project>
