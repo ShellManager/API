@@ -4,5 +4,4 @@ class ApplicationController < ActionController::API
     header  = request.headers["Authorization"]
     header.gsub(pattern, '') if header&.match(pattern)
   end
-
 end

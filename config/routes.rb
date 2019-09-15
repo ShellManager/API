@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       # POST /users    # create
       # PUT /users/:id # update
       # DESTROY /users # destroy
+      resources :sessions, only: %i[create, destroy]
     end
   end
 end
