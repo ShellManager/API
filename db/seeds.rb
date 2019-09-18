@@ -6,6 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 password = SecureRandom.hex(24)
+totp = ROTP::Base32.random
+
+qr = RQRCode::QRCode.new("otpauth://totp/system%40m6.nz?secret=#{totp}&issuer=ShellManager", size: 1, level: :h)
+
+
 User.create!(first_name: 'System',
             last_name: 'Administrator',
             email: 'system@m6.nz',
@@ -19,8 +24,17 @@ User.create!(first_name: 'System',
             active: true,
             shell_active: true,
             protected: true,
-            user_global_id: SecureRandom.uuid)
+            user_global_id: SecureRandom.uuid,
+            tfa_key: totp,
+            tfa_enabled: false)
+
+puts qr.as_ansi(
+    light: "\033[47m", dark: "\033[40m",
+    fill_character: '  ',
+    quiet_zone_size: 1
+)
 puts 'New System Account details:'
 puts 'Username: root'
 puts 'Email: system@m6.nz'
 puts "Password: #{password}"
+puts "TOTP Code: #{totp}"

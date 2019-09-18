@@ -9,22 +9,10 @@ class V1::SessionsController < ApplicationController
     password = bearer[1]
     user = User.find_by_email(email)
     if user && user.authenticate(password) && user.activated && user.active
+      Log.create!(user: user.user_global_id, administrative: false, action: "User Login from #{request.remote_ip}")
       render json: { :api_key => user.api_key, :status => :ok }
     else
       render json: { :api_key => nil, :status => :unauthorized }
-    end
-  end
-
-  def destroy
-    bearer = Base64.decode64(bearer_token).split(':', 2)
-    email = bearer[0]
-    password = bearer[1]
-    user = User.find_by_email(email)
-    if user && user.authenticate(password) && user.activated && user.active
-      user.api_key = SecureRandom.uuid
-      render json: { :status => :ok } if user.save
-    else
-      render json: { :status => :unauthorized }
     end
   end
 end

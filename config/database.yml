@@ -23,7 +23,7 @@ default: &default
   host: pubdb01.m6.nz
   port: 5432
   username: postgres
-  password: postgres
+  password: 3r1fuI9wtjvmIAEJ
 
 development:
   <<: *default

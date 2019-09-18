@@ -15,7 +15,10 @@ Rails.application.routes.draw do
       # POST /users    # create
       # PUT /users/:id # update
       # DESTROY /users # destroy
-      resources :sessions, only: %i[create, destroy]
+      resources :sessions, only: %i[create]
+      resources :details, only: %i[show], :id => /.*/
+      resources :keys, only: %i[index destroy]
+      resources :logs, only: %i[index]
     end
   end
 end

@@ -6,16 +6,14 @@ class V1::UsersController < V1::VersionController
   end
   
   def show
-    user = User.find_by(shell_username: params[:id])
+    user = User.find_by("shell_username = ? OR email = ?", params[:id], params[:id])
     render json: { user_exists: true, status: :ok } unless user.blank?
     render json: { user_exists: false, status: :ok } if user.blank?
   end
 
   def create
     user = User.new(create_params)
-    if [user.first_name, user.last_name, user.email, user.date_of_birth, \
-        user.shell_username].all? && EmailValidator.valid?(user.email.downcase) \
-    && !User.find_by(shell_username: user.shell_username) \
+    if EmailValidator.valid?(user.email.downcase) \
     && !User.find_by(email: user.email.downcase)
       user.permission_level = 99
       user.activation_token = SecureRandom.uuid
@@ -25,7 +23,10 @@ class V1::UsersController < V1::VersionController
       user.shell_active = false
       user.protected = false
       user.user_global_id = SecureRandom.uuid
+      user.tfa_enabled = false
+      user.tfa_key = SecureRandom.uuid
       user.save
+      Log.create!(user: user.user_global_id, administrative: false, action: "New Account Created")
       render json: { user_created: true, status: :ok }
     else
       render json: { user_created: false, status: :bad_request }
@@ -35,7 +36,10 @@ class V1::UsersController < V1::VersionController
   def update
     if bearer_token
       user = User.find_by_email_and_api_key(params[:id], bearer_token)
-      render json: { user_updated: true, status: :ok } if user.update(update_params)
+      user.api_key = SecureRandom.uuid unless params[:user][:password].nil?
+      user.protected ? user.update(protected_update) : user.update(update_params)
+      Log.create!(user: user.user_global_id, administrative: false, action: "Account Updated")
+      render json: { user_updated: true, status: :ok }
     else
       render json: { user_updated: false, status: :bad_request }
     end
@@ -44,6 +48,7 @@ class V1::UsersController < V1::VersionController
   def destroy
     if bearer_token
       user = User.find_by_email_and_api_key(params[:id], bearer_token)
+      Log.destroy_all("user = #{user.user_global_id}")
       if !user.protected
         render json: { user_destroyed: true, status: :gone } if user.destroy
       end
@@ -57,12 +62,17 @@ class V1::UsersController < V1::VersionController
 
   def create_params
     params.require(:user)
-          .permit(:first_name, :last_name, :email, \
-                  :password, :date_of_birth, :shell_username)
+          .permit(:email, :password)
     end
 
   def update_params
     params.require(:user)
-          .permit(:email, :password)
+          .permit(:email, :password, :first_name, :last_name, \
+                  :date_of_birth, :shell_username)
+  end
+
+  def protected_update
+    params.require(:user)
+          .permit(:password)
   end
 end

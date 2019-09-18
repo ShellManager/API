@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_231415) do
+ActiveRecord::Schema.define(version: 2019_09_18_040415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "logs", force: :cascade do |t|
+    t.uuid "user"
+    t.boolean "administrative"
+    t.text "action"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "settings", force: :cascade do |t|
     t.string "site_name"
@@ -46,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_09_07_231415) do
     t.string "shell_username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "tfa_enabled"
   end
 
 end
