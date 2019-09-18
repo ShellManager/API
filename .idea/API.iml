@@ -50,6 +50,7 @@
     <orderEntry type="library" scope="PROVIDED" name="chunky_png (v1.3.11, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.5, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.4, ruby-2.5.5-p157) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="doorkeeper (v5.1.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="email_validator (v2.0.1, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.8.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, ruby-2.5.5-p157) [gem]" level="application" />

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/500' => 'errors#internal_server_error'
 
   scope '/api', defaults: { format: :json } do
+    use_doorkeeper scope: 'v1/oauth'
     namespace :v1 do
       resources :users, except: %i[new edit], :id => /.*/
       # GET /users     # index
@@ -17,6 +18,8 @@ Rails.application.routes.draw do
       # DESTROY /users # destroy
       resources :sessions, only: %i[create]
       resources :details, only: %i[show], :id => /.*/
+      resources :identity, only: %i[index]
+      resources :applications, only: %i[show], :id => /.*/
       resources :keys, only: %i[index destroy]
       resources :logs, only: %i[index]
     end
