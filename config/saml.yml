@@ -1,0 +1,5 @@
+entity_id: google.com/a/northridge.xyz
+encryption:
+  - certificate: idp.crt
+  - private_key: idp.key
+  - algorithm: sha256

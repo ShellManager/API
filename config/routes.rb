@@ -10,18 +10,19 @@ Rails.application.routes.draw do
   scope '/api', defaults: { format: :json } do
     use_doorkeeper scope: 'v1/oauth'
     namespace :v1 do
-      resources :users, except: %i[new edit], :id => /.*/
+      resources :users, except: %i[new edit], id: /.*/
       # GET /users     # index
       # GET /users/:id # show
       # POST /users    # create
       # PUT /users/:id # update
       # DESTROY /users # destroy
       resources :sessions, only: %i[create]
-      resources :details, only: %i[show], :id => /.*/
+      resources :details, only: %i[show], id: /.*/
       resources :identity, only: %i[index]
-      resources :applications, only: %i[show], :id => /.*/
+      resources :applications, only: %i[show], id: /.*/
       resources :keys, only: %i[index destroy]
       resources :logs, only: %i[index]
+      resources :saml, only: %i[index show]
     end
   end
 end

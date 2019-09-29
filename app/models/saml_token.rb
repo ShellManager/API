@@ -1,0 +1,2 @@
+class SamlToken < ApplicationRecord
+end
