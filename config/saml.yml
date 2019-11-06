@@ -1,5 +1,6 @@
-entity_id: google.com/a/northridge.xyz
+service_provider: sp.xml
+entity_id: google.com/a/example.com
 encryption:
-  - certificate: idp.crt
-  - private_key: idp.key
-  - algorithm: sha256
+  certificate: idp.crt
+  private_key: idp.key
+  algorithm: sha1
