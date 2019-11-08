@@ -5,7 +5,7 @@ class V1::SamlController < V1::VersionController
   def index
     xml_uuid = SecureRandom.uuid
     SamlToken.create!(uuid: xml_uuid, xml: request.original_fullpath)
-    redirect_to "http://localhost:3001/federation/saml?caller=#{xml_uuid}"
+    redirect_to "https://id.m6.nz/federation/saml?caller=#{xml_uuid}"
   end
 
   def show
@@ -24,7 +24,7 @@ class V1::SamlController < V1::VersionController
       SamlToken.delete(xml.id)
       render template: "saml2/http_post.html", layout: false
     else
-      redirect_to "http://localhost:3001/500"
+      redirect_to "https://id.m6.nz/500"
     end
   end
 
