@@ -17,9 +17,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :activation_token
       t.boolean :activated
       t.boolean :active
-      t.boolean :shell_active
       t.boolean :protected
-      t.string :shell_username
       t.timestamps
     end
   end

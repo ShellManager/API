@@ -31,7 +31,7 @@ class V1::SamlController < V1::VersionController
   protected
 
   def self.idp_name_email(user)
-    SAML2::NameID.new(user.saml_email, SAML2::NameID::Format::UNSPECIFIED)
+    SAML2::NameID.new(user.email, SAML2::NameID::Format::UNSPECIFIED)
   end
 
   def self.service_provider

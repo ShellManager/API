@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_073549) do
+ActiveRecord::Schema.define(version: 2019_11_07_121657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.text "name"
+    t.text "redirect_uri"
+    t.text "application_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "logs", force: :cascade do |t|
     t.uuid "user"
@@ -65,6 +73,14 @@ ActiveRecord::Schema.define(version: 2019_09_18_073549) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "saml_tokens", force: :cascade do |t|
+    t.text "xml"
+    t.uuid "uuid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "relaystate"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "site_name"
     t.string "site_protocol"
@@ -91,12 +107,12 @@ ActiveRecord::Schema.define(version: 2019_09_18_073549) do
     t.string "activation_token"
     t.boolean "activated"
     t.boolean "active"
-    t.boolean "shell_active"
     t.boolean "protected"
-    t.string "shell_username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "tfa_enabled"
+    t.boolean "saml_enabled"
+    t.text "reset_code"
   end
 
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"

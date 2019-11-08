@@ -23,6 +23,12 @@ Rails.application.routes.draw do
       resources :keys, only: %i[index destroy]
       resources :logs, only: %i[index]
       resources :saml, only: %i[index show]
+      resources :admin, path: 'admin/:operation', only: %i[show], id: /.*/
+      resources :admin, only: %i[index]
+      get "/verify/:email/:code" => "misc#verify_email", email: /.*/
+      get "/reset/:email" => "misc#reset", email: /.*/
+      post "/account_reset" => "misc#password"
+      post "/multifactor" => "misc#multifactor"
     end
   end
 end

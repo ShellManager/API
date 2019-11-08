@@ -34,7 +34,9 @@ module API
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.exceptions_app = self.routes
-
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = { :api_token => "e4d67398-4ff7-44d1-9f06-0d39f64cde2d" }
+    
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

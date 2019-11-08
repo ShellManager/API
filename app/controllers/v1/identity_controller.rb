@@ -10,8 +10,8 @@ class V1::IdentityController < V1::VersionController
     searchable_user = User.where(email: params[:id])
                           .select(:id, :first_name, :last_name, :email, \
                                   :date_of_birth, :user_global_id, :api_key, \
-                                  :activated, :active, :protected, :shell_username,
-                                  :permission_level, :shell_active, :tfa_key, :tfa_enabled)
+                                  :activated, :active, :protected,
+                                  :permission_level, :tfa_key, :tfa_enabled)
       render json: { :user_details => user, :status => :ok }
   end
 

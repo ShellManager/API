@@ -6,7 +6,7 @@ class V1::UsersController < V1::VersionController
   end
   
   def show
-    user = User.find_by("shell_username = ? OR email = ?", params[:id], params[:id])
+    user = User.find_by("email = ?", params[:id])
     render json: { user_exists: true, status: :ok } unless user.blank?
     render json: { user_exists: false, status: :ok } if user.blank?
   end
@@ -20,12 +20,13 @@ class V1::UsersController < V1::VersionController
       user.api_key = SecureRandom.uuid
       user.activated = false
       user.active = false
-      user.shell_active = false
       user.protected = false
       user.user_global_id = SecureRandom.uuid
       user.tfa_enabled = false
       user.tfa_key = SecureRandom.uuid
       user.save
+      @user = user
+      PostmarkMailer.verify(@user).deliver_now
       Log.create!(user: user.user_global_id, administrative: false, action: "New Account Created")
       render json: { user_created: true, status: :ok }
     else
@@ -67,8 +68,8 @@ class V1::UsersController < V1::VersionController
 
   def update_params
     params.require(:user)
-          .permit(:email, :password, :first_name, :last_name, \
-                  :date_of_birth, :shell_username)
+          .permit(:password, :first_name, :last_name, \
+                  :date_of_birth)
   end
 
   def protected_update

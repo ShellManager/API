@@ -15,9 +15,9 @@ class V1::KeysController < V1::VersionController
             file: nil
       )
 
-      render json: { tfa_enabled: user.tfa_enabled, image: Base64.encode64(png.to_s), status: :ok }
+      render json: { tfa_enabled: user.tfa_enabled, tfa_key: user.tfa_key, image: Base64.encode64(png.to_s), status: :ok }
     else
-      render json: { tfa_enabled: nil, image: nil, status: :unauthorized }
+      render json: { tfa_enabled: nil, tfa_key: nil, image: nil, status: :unauthorized }
     end
   end
 
