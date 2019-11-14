@@ -4,7 +4,7 @@ class V1::AdminController < V1::VersionController
     def index
         user = User.find_by(api_key: bearer_token)
         if user && user.permission_level == 0
-            render json: { users: User.all.order_by(id: :desc) }
+            render json: { users: User.all.order(id: :asc) }
         else
             render json: { users: nil, status: :bad_request }
         end
