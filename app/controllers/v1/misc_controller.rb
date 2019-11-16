@@ -37,17 +37,17 @@ class V1::MiscController < V1::VersionController
     end
 
     def multifactor
-        user = User.find_by(api_key: bearer_token)
         totp = ROTP::TOTP.new(user.tfa_key)
         json = JSON.parse request.raw_post
+        user = User.find_by(email: json["email"])
         puts user.tfa_key
-        if params[:validate].present?
+        if params[:validate].present? && user
             if totp.verify(json["code"])
                 render json: { status: :ok }
             else
                 render json: { status: :bad_request }
             end
-        else
+        elsif user
             if totp.verify(json["code"])
                 user.tfa_enabled = !user.tfa_enabled
                 user.tfa_key = ROTP::Base32.random if !user.tfa_enabled
@@ -56,6 +56,8 @@ class V1::MiscController < V1::VersionController
             else
                 render json: { user_updated: false, status: :bad_request }
             end
+        else
+            render json: { status: :bad_request }
         end
 
     end
