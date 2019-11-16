@@ -41,13 +41,21 @@ class V1::MiscController < V1::VersionController
         totp = ROTP::TOTP.new(user.tfa_key)
         json = JSON.parse request.raw_post
         puts user.tfa_key
-        if totp.verify(json["code"])
-            user.tfa_enabled = !user.tfa_enabled
-            user.tfa_key = ROTP::Base32.random if !user.tfa_enabled
-            user.save
-            render json: { user_updated: true, status: :ok }
+        if params[:validate].present?
+            if totp.verify(json["code"])
+                render json: { status: :ok }
+            else
+                render json: { status: :bad_request }
+            end
         else
-            render json: { user_updated: false, status: :bad_request }
+            if totp.verify(json["code"])
+                user.tfa_enabled = !user.tfa_enabled
+                user.tfa_key = ROTP::Base32.random if !user.tfa_enabled
+                user.save
+                render json: { user_updated: true, status: :ok }
+            else
+                render json: { user_updated: false, status: :bad_request }
+            end
         end
 
     end
