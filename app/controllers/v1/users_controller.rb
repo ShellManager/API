@@ -23,7 +23,7 @@ class V1::UsersController < V1::VersionController
       user.protected = false
       user.user_global_id = SecureRandom.uuid
       user.tfa_enabled = false
-      user.tfa_key = SecureRandom.uuid
+      user.tfa_key = ROTP::Base32.random
       user.save
       @user = user
       PostmarkMailer.verify(@user).deliver_now
