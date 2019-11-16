@@ -37,17 +37,17 @@ class V1::MiscController < V1::VersionController
     end
 
     def multifactor
+        user = params[:validate].present? ? user = User.find_by(email: json["email"]) : User.find_by(api_key: bearer_token)
         totp = ROTP::TOTP.new(user.tfa_key)
         json = JSON.parse request.raw_post
-        user = User.find_by(email: json["email"])
-        puts user.tfa_key
-        if params[:validate].present? && user
+        if params[:validate].present?
             if totp.verify(json["code"])
-                render json: { status: :ok }
+                Log.create!(user: user.user_global_id, administrative: false, action: "User Login from #{request.remote_ip}")
+                render json: { api_key: user.api_key, status: :ok }
             else
-                render json: { status: :bad_request }
+                render json: { api_key: nil, status: :bad_request }
             end
-        elsif user
+        else
             if totp.verify(json["code"])
                 user.tfa_enabled = !user.tfa_enabled
                 user.tfa_key = ROTP::Base32.random if !user.tfa_enabled
@@ -56,9 +56,6 @@ class V1::MiscController < V1::VersionController
             else
                 render json: { user_updated: false, status: :bad_request }
             end
-        else
-            render json: { status: :bad_request }
         end
-
     end
 end
