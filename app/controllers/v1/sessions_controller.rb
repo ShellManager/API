@@ -16,7 +16,7 @@ class V1::SessionsController < ApplicationController
         render json: { :api_key => user.api_key, :status => :ok }
       end
     else
-      render json: { :api_key => nil, :status => :unauthorized }
+      render json: { :api_key => nil, :status => :forbidden }
     end
   end
 end
