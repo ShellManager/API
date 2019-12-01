@@ -18,8 +18,6 @@ class V1::AdminController < V1::VersionController
             operable_user.active = true if params[:operation] == "disable"
             operable_user.permission_level = 0 if params[:operation] == "admin"
             operable_user.permission_level = 99 if params[:operation] == "user"
-            operable_user.saml_enabled = true if params[:operation] == "saml"
-            operable_user.saml_enabled = true if params[:operation] == "nosaml"
             User.delete(operable_user.id) if params[:operation] == "delete"
 
             operable_user.tfa_enabled = false if params[:operation] == "2fa"

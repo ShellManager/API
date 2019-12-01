@@ -20,10 +20,10 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: pubdb01.m6.nz
+  host: db.id.m6.nz
   port: 5432
   username: postgres
-  password: 3r1fuI9wtjvmIAEJ
+  password: 4Fec1z0GBif0LyC4
 
 development:
   <<: *default
@@ -36,5 +36,3 @@ test:
 production:
   <<: *default
   database: shellmanager
-  username: shellmanager
-  password: <%= ENV['SHELLMANAGER_DATABASE_PASSWORD'] %>
