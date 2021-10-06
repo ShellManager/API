@@ -454,11 +454,11 @@
                                               </div>
                                               <div style="text-align: left; word-wrap: break-word;">Welcome back!
                                                 <br />
-                                                <br />To reset your password, please <a href="https://id.m6.nz/account/reset/<%= @user.reset_code %>">click here</a>:
+                                                <br />To reset your password, please <a href="#{ENV['IDENTITY_UI_PROTOCOL']}://#{ENV['IDENTITY_UI_URL']}/account/reset/<%= @user.reset_code %>">click here</a>:
                                                 <br /></div>
                                                 <br />Have a wonderful day,
-                                                <br />The Team at M6 Securities
-                                                <div class="footer" style="font-size: 0.7em; padding: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: right; color: #777777; line-height: 14px; margin-top: 36px;">© 2019 M6 Securities, Inc.
+                                                <br />The Team at Chase
+                                                <div class="footer" style="font-size: 0.7em; padding: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: right; color: #777777; line-height: 14px; margin-top: 36px;">&copy; 2017-2021 Chase Securities Limited. All Rights Reserved.
                                                   <br>
                                                 </div>
                                               </div>
