@@ -8,9 +8,6 @@
 password = SecureRandom.hex(24)
 totp = ROTP::Base32.random
 
-qr = RQRCode::QRCode.new("otpauth://totp/system%40m6.nz?secret=#{totp}&issuer=ShellManager", size: 1, level: :h)
-
-
 User.create!(first_name: 'System',
             last_name: 'Administrator',
             email: 'system@m6.nz',
