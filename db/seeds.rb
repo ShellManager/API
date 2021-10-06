@@ -25,12 +25,6 @@ User.create!(first_name: 'System',
             user_global_id: SecureRandom.uuid,
             tfa_key: totp,
             tfa_enabled: false)
-
-puts qr.as_ansi(
-    light: "\033[47m", dark: "\033[40m",
-    fill_character: '  ',
-    quiet_zone_size: 1
-)
 puts 'New System Account details:'
 puts 'Username: root'
 puts 'Email: system@m6.nz'
