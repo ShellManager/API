@@ -3,7 +3,7 @@ class PostmarkMailer < ApplicationMailer
       @user = user
       mail(
         :to  => user.email,
-        :from => 'system@m6.nz',
+        :from => ENV['POSTMARK_FROM'],
         :subject => 'Your Reset Code',
         :track_opens => 'true')
     end
@@ -11,7 +11,7 @@ class PostmarkMailer < ApplicationMailer
       @user = user
       mail(
         :to  => user.email,
-        :from => 'system@m6.nz',
+        :from => ENV['POSTMARK_FROM'],
         :subject => 'Verify Your Account',
         :track_opens => 'true')
     end
