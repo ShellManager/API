@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get '/500' => 'errors#internal_server_error'
 
   scope '/api', defaults: { format: :json } do
-    use_doorkeeper scope: 'v1/oauth'
     namespace :v1 do
       resources :users, except: %i[new edit], id: /.*/
       # GET /users     # index
@@ -25,6 +24,9 @@ Rails.application.routes.draw do
       resources :saml, only: %i[index show]
       resources :admin, path: 'admin/:operation', only: %i[show], id: /.*/
       resources :admin, only: %i[index]
+      scope 'oauth' do
+        get '/authorize' => 'oauth#authorize'
+      end
       get "/verify/:email/:code" => "misc#verify_email", email: /.*/
       get "/reset/:email" => "misc#reset", email: /.*/
       post "/account_reset" => "misc#password"

@@ -17,8 +17,8 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
     add_index :oauth_applications, :uid, unique: true
 
     create_table :oauth_access_grants do |t|
-      t.references :resource_owner,  null: false
-      t.references :application,     null: false
+      t.integer :resource_owner,  null: false
+      t.integer :application,     null: false
       t.string   :token,             null: false
       t.integer  :expires_in,        null: false
       t.text     :redirect_uri,      null: false
@@ -28,15 +28,10 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
     end
 
     add_index :oauth_access_grants, :token, unique: true
-    add_foreign_key(
-      :oauth_access_grants,
-      :oauth_applications,
-      column: :application_id
-    )
 
     create_table :oauth_access_tokens do |t|
-      t.references :resource_owner, index: true
-      t.references :application,    null: false
+      t.integer :resource_owner, null: false
+      t.integer :application,    null: false
 
       # If you use a custom token generator you may need to change this column
       # from string to text, so that it accepts tokens larger than 255
@@ -63,11 +58,6 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[6.0]
 
     add_index :oauth_access_tokens, :token, unique: true
     add_index :oauth_access_tokens, :refresh_token, unique: true
-    add_foreign_key(
-      :oauth_access_tokens,
-      :oauth_applications,
-      column: :application_id
-    )
 
     # Uncomment below to ensure a valid reference to the resource owner's table
     # add_foreign_key :oauth_access_grants, <model>, column: :resource_owner_id

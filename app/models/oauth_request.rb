@@ -1,0 +1,2 @@
+class OauthRequest < ApplicationRecord
+end

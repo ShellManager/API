@@ -3,7 +3,7 @@ class V1::SamlController < V1::VersionController
   def index
     xml_uuid = SecureRandom.uuid
     SamlToken.create!(uuid: xml_uuid, xml: request.original_fullpath)
-    redirect_to "#{ENV['IDENTITY_UI_PROTOCOL']}://#{ENV['IDENTITY_UI_URL']}/federation/authorize?caller=#{xml_uuid}&client_id=#{params[:client_id]}"
+    redirect_to "#{ENV['IDENTITY_UI_PROTOCOL']}://#{ENV['IDENTITY_UI_URL']}/federation/authorize?caller=#{xml_uuid}&client_id=#{params[:client_id]}&authtype=saml"
   end
 
   def show
